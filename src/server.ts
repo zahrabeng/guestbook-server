@@ -1,5 +1,5 @@
 import express from "express";
-import { addDummyGuestbookSignatures, addGuestbookSignature, getAllGuestbookSignatures, getGuestbookSignatureById, GuestbookSignature } from "./db";
+import { addDummyGuestbookSignatures, addGuestbookSignature, getAllGuestbookSignatures, getGuestbookSignatureById, GuestbookSignature, updateGuestbookSignatureById } from "./db";
 
 // loading in some dummy signatures into the database
 // (comment out if desired, or change the number)
@@ -30,14 +30,35 @@ app.post<{}, {}, GuestbookSignature>("/signatures", (req, res) => {
 // GET /signatures/:id
 app.get<{ id: string }>("/signatures/:id", (req, res) => {
   const matchingSignature = getGuestbookSignatureById(parseInt(req.params.id));
-  res.status(200).json(matchingSignature)
+  if (matchingSignature === "not found") {
+    res.status(404).json(matchingSignature);
+  } else {
+    res.status(200).json(matchingSignature);
+  }
 })
 
 // DELETE /signatures/:id
 app.delete<{ id: string }>("/signatures/:id", (req, res) => {
   const matchingSignature = getGuestbookSignatureById(parseInt(req.params.id));
-  res.status(200).json(matchingSignature)
+  if (matchingSignature === "not found") {
+    res.status(404).json(matchingSignature);
+  } else {
+    res.status(200).json(matchingSignature);
+  }
 })
+
+// PATCH /signatures/:id
+app.patch<{ id: string }, {}, Partial<GuestbookSignature>>(
+  "/signatures/:id",
+  (req, res) => {
+    const matchingSignature = updateGuestbookSignatureById(parseInt(req.params.id), req.body);
+    if (matchingSignature === "not found") {
+      res.status(404).json(matchingSignature);
+    } else {
+      res.status(200).json(matchingSignature);
+    }
+  }
+);
 
 app.listen(PORT_NUMBER, () => {
   console.log(`Server is listening on port ${PORT_NUMBER}!`);
