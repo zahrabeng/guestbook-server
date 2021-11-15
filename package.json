@@ -1,8 +1,6 @@
 {
-  "name": "continents-json-server",
+  "name": "guestbook-server",
   "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
   "scripts": {
     "format": "prettier --write src",
     "format:check": "prettier --check src",
@@ -11,8 +9,7 @@
     "start": "ts-node src/server.ts",
     "start:dev": "ts-node-dev src/server.ts"
   },
-  "author": "",
-  "license": "ISC",
+  "license": "CC-BY-NC-ND-4.0",
   "devDependencies": {
     "@types/express": "^4.17.10",
     "@types/node": "^14.14.20",
