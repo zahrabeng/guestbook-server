@@ -7,6 +7,7 @@ import {
   GuestbookSignature,
   updateGuestbookSignatureById,
 } from "./db";
+import filePath from "./filePath";
 
 // loading in some dummy signatures into the database
 // (comment out if desired, or change the number)
@@ -18,6 +19,12 @@ app.use(express.json());
 
 // using 4000 by convention, but could be changed
 const PORT_NUMBER = 4000;
+
+// API info page
+app.get("/", (req, res) => {
+  const pathToFile = filePath("/index.html");
+  res.sendFile(pathToFile);
+});
 
 // GET /signatures
 app.get("/signatures", (req, res) => {
