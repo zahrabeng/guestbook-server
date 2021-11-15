@@ -15,7 +15,7 @@ const PORT_NUMBER = 4000;
 // GET /signatures
 app.get("/signatures", (req, res) => {
   const allSignatures = getAllGuestbookSignatures();
-  res.json(allSignatures);
+  res.status(200).json(allSignatures);
 })
 
 // POST /signatures
@@ -24,13 +24,19 @@ app.post<{}, {}, GuestbookSignature>("/signatures", (req, res) => {
   // ... but omitting this as a simplification
   const postData = req.body;
   const createdSignature = addGuestbookSignature(postData);
-  res.json(createdSignature);
+  res.status(201).json(createdSignature);
 });
 
 // GET /signatures/:id
 app.get<{ id: string }>("/signatures/:id", (req, res) => {
   const matchingSignature = getGuestbookSignatureById(parseInt(req.params.id));
-  res.json(matchingSignature)
+  res.status(200).json(matchingSignature)
+})
+
+// DELETE /signatures/:id
+app.delete<{ id: string }>("/signatures/:id", (req, res) => {
+  const matchingSignature = getGuestbookSignatureById(parseInt(req.params.id));
+  res.status(200).json(matchingSignature)
 })
 
 app.listen(PORT_NUMBER, () => {
