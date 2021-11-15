@@ -1,4 +1,4 @@
-import faker, { fake } from 'faker';
+import faker from 'faker';
 
 export interface GuestbookSignature {
   name: string;
