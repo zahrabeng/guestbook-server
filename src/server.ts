@@ -22,7 +22,7 @@ const PORT_NUMBER = 4000;
 
 // API info page
 app.get("/", (req, res) => {
-  const pathToFile = filePath("/index.html");
+  const pathToFile = filePath("../public/index.html");
   res.sendFile(pathToFile);
 });
 
