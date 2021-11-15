@@ -1,5 +1,12 @@
 import express from "express";
-import { addDummyGuestbookSignatures, addGuestbookSignature, getAllGuestbookSignatures, getGuestbookSignatureById, GuestbookSignature, updateGuestbookSignatureById } from "./db";
+import {
+  addDummyGuestbookSignatures,
+  addGuestbookSignature,
+  getAllGuestbookSignatures,
+  getGuestbookSignatureById,
+  GuestbookSignature,
+  updateGuestbookSignatureById,
+} from "./db";
 
 // loading in some dummy signatures into the database
 // (comment out if desired, or change the number)
@@ -16,7 +23,7 @@ const PORT_NUMBER = 4000;
 app.get("/signatures", (req, res) => {
   const allSignatures = getAllGuestbookSignatures();
   res.status(200).json(allSignatures);
-})
+});
 
 // POST /signatures
 app.post<{}, {}, GuestbookSignature>("/signatures", (req, res) => {
@@ -35,7 +42,7 @@ app.get<{ id: string }>("/signatures/:id", (req, res) => {
   } else {
     res.status(200).json(matchingSignature);
   }
-})
+});
 
 // DELETE /signatures/:id
 app.delete<{ id: string }>("/signatures/:id", (req, res) => {
@@ -45,13 +52,16 @@ app.delete<{ id: string }>("/signatures/:id", (req, res) => {
   } else {
     res.status(200).json(matchingSignature);
   }
-})
+});
 
 // PATCH /signatures/:id
 app.patch<{ id: string }, {}, Partial<GuestbookSignature>>(
   "/signatures/:id",
   (req, res) => {
-    const matchingSignature = updateGuestbookSignatureById(parseInt(req.params.id), req.body);
+    const matchingSignature = updateGuestbookSignatureById(
+      parseInt(req.params.id),
+      req.body
+    );
     if (matchingSignature === "not found") {
       res.status(404).json(matchingSignature);
     } else {
