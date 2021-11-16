@@ -1,4 +1,5 @@
 import express from "express";
+import dotenv from 'dotenv';
 import {
   addDummyGuestbookSignatures,
   addGuestbookSignature,
@@ -17,8 +18,10 @@ const app = express();
 /** Parses JSON data in a request automatically */
 app.use(express.json());
 
-// using 'environment variable' port, with 4000 fallback
-// (this is for Heroku deployment later)
+// read in contents of any environment variables in the .env file
+dotenv.config();
+
+// use the environment variable PORT, or 4000 as a fallback
 const PORT_NUMBER = process.env.PORT ?? 4000;
 
 // API info page
