@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import {
   addDummyGuestbookSignatures,
   addGuestbookSignature,
+  deleteGuestbookSignatureById,
   getAllGuestbookSignatures,
   getGuestbookSignatureById,
   GuestbookSignature,
