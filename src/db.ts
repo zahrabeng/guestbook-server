@@ -83,7 +83,7 @@ const findIndexOfGuestbookSignatureById = (
 ): number | "not found" => {
   const matchingIdx = db.findIndex((entry) => entry.id === id);
   // .findIndex returns -1 if not located
-  if (matchingIdx) {
+  if (matchingIdx >= 0) {
     return matchingIdx;
   } else {
     return "not found";
